@@ -21,7 +21,7 @@ session_id,user_id,command_id,timestamp
 ...
 ```
 
-ファイル内の以下の部分でのpathを適宜変更し、`python preprocess.py`を実行してください。少し時間がかかります(3分ほど)。
+入力ファイル部分`input_path = '202112userlogs.csv'`や以下の部分でpathを適宜変更し、`python preprocess.py`を実行してください。少し時間がかかります(3分ほど)。
 ```python
 output_path = './out-data/eseikatsu.csv'
 pickle.dump(user_id_map, open('./out-data/user_id_map.pkl', 'wb'))

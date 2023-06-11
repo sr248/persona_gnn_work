@@ -15,7 +15,7 @@ import datetime
 import os
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--dataset', default='sample', help='dataset name: diginetica/yoochoose/sample/(eseikatsu2112)')
+parser.add_argument('--dataset', default='sample', help='dataset name: diginetica/yoochoose/sample/(eseikatsu)')
 opt = parser.parse_args()
 print(opt)
 
@@ -24,12 +24,12 @@ if opt.dataset == 'diginetica':
     dataset = 'train-item-views.csv'
 elif opt.dataset =='yoochoose':
     dataset = 'yoochoose-clicks.dat'
-elif opt.dataset == 'eseikatsu2112':
-    dataset = 'eseikatsu2112'
+elif opt.dataset == 'eseikatsu':
+    dataset = 'eseikatsu.csv'
 
 print("-- Starting @ %ss" % datetime.datetime.now())
 with open(dataset, "r") as f:
-    if opt.dataset in ['yoochoose', 'eseikatsu2112']:
+    if opt.dataset in ['yoochoose', 'eseikatsu']:
         reader = csv.DictReader(f, delimiter=',')
     else:
         reader = csv.DictReader(f, delimiter=';')
@@ -43,20 +43,20 @@ with open(dataset, "r") as f:
         if curdate and not curid == sessid:
             date = ''
             # TODO: think to update for eseikatsu
-            if opt.dataset == 'yoochoose':
+            if opt.dataset in ['yoochoose', 'eseikatsu']:
                 date = time.mktime(time.strptime(curdate[:19], '%Y-%m-%dT%H:%M:%S'))
             else:
                 date = time.mktime(time.strptime(curdate, '%Y-%m-%d'))
             sess_date[curid] = date
         curid = sessid
         # TODO: think to update for eseikatsu
-        if opt.dataset == 'yoochoose':
+        if opt.dataset in ['yoochoose', 'eseikatsu']:
             item = data['item_id']
         else:
             item = data['item_id'], int(data['timeframe'])
         curdate = ''
         # TODO: think to update for eseikatsu
-        if opt.dataset == 'yoochoose':
+        if opt.dataset in ['yoochoose', 'eseikatsu']:
             curdate = data['timestamp']
         else:
             curdate = data['eventdate']
@@ -69,7 +69,7 @@ with open(dataset, "r") as f:
         ctr += 1
     date = ''
     # TODO: think to update for eseikatsu
-    if opt.dataset == 'yoochoose':
+    if opt.dataset in ['yoochoose', 'eseikatsu']:
         date = time.mktime(time.strptime(curdate[:19], '%Y-%m-%dT%H:%M:%S'))
     else:
         date = time.mktime(time.strptime(curdate, '%Y-%m-%d'))

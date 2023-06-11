@@ -30,6 +30,5 @@ prepreprocess_df.to_csv(output_path, index=False)
 ```
 また出力ファイルである`user_id_map.pkl`と`command_id_map.pkl`には`user_id`と`command_id`にそれぞれ対応する実際の内容 (ex. `customer_key`; `pc_name`; `command_name`など) が入っています。実際のコマンド内容を参照したいときは例えば以下を実行してファイルをロードしてください。
 ```python
-with open('chome/user_id_map.pkl', 'rb') as f:
-    user_id_map = pickle.load(f)
+    user_id_map = pickle.load(open('out-data/user_id_map.pkl', 'rb'))
 ```
